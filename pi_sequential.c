@@ -16,7 +16,8 @@
 //#include "mpi.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
+//#include <time.h>
+#include<sys/time.h>
 
 void srandom (unsigned seed);
 double dboard (int darts);
@@ -28,8 +29,9 @@ double dboard (int darts);
 int main (int argc, char *argv[])
 {
 
-  time_t t_start=time(NULL), t_end;
-  printf("starting=%lu\n", t_start);
+    struct timeval t_start, t_end;
+  gettimeofday(&t_start, NULL);
+
     
   double	homepi,         /* value of pi calculated by current task */
     pisum,	        /* sum of tasks' pi values */
@@ -76,9 +78,14 @@ int main (int argc, char *argv[])
 
   printf ("\nReal value of PI: 3.1415926535897 \n");
 
-  t_end=time(NULL);
-  printf("end=%lu\n", t_end);
-  printf("duration=%lu\n", t_end - t_start);
+  gettimeofday(&t_end, NULL);
+  unsigned long t_start_ms = 1000000 * t_start.tv_sec + t_start.tv_usec;
+  unsigned long t_end_ms = 1000000 * t_end.tv_sec + t_end.tv_usec;  
+
+  printf("start=%lu\n", t_start_ms);
+  printf("end=%lu\n", t_end_ms);
+  printf("duration=%lu\n", t_end_ms-t_start_ms);
+  
   return 0;
 }
 
