@@ -16,6 +16,7 @@
 #include "mpi.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 void srandom (unsigned seed);
 double dboard (int darts);
@@ -25,6 +26,10 @@ double dboard (int darts);
 
 int main (int argc, char *argv[])
 {
+
+    time_t t_start=time(NULL), t_end;
+  printf("starting=%lu\n", t_start);
+
 double	homepi,         /* value of pi calculated by current task */
 	pisum,	        /* sum of tasks' pi values */
 	pi,	        /* average of pi after "darts" is thrown */
@@ -76,6 +81,11 @@ if (taskid == MASTER)
    printf ("\nReal value of PI: 3.1415926535897 \n");
 
 MPI_Finalize();
+
+   t_end=time(NULL);
+  printf("end=%lu\n", t_end);
+  printf("duration=%lu\n", t_end - t_start);
+
 return 0;
 }
 
