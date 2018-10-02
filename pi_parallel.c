@@ -80,20 +80,20 @@ int main (int argc, char *argv[])
 	     (DARTS * (i + 1)),avepi);
     }    
   } 
-  if (taskid == MASTER) 
+  if (taskid == MASTER) {
     printf ("\nReal value of PI: 3.1415926535897 \n");
 
-  MPI_Finalize();
+
  
-  gettimeofday(&t_end, NULL);
-  unsigned long t_start_ms = 1000000 * t_start.tv_sec + t_start.tv_usec;
+    gettimeofday(&t_end, NULL);
+    unsigned long t_start_ms = 1000000 * t_start.tv_sec + t_start.tv_usec;
   unsigned long t_end_ms = 1000000 * t_end.tv_sec + t_end.tv_usec;  
 
   printf("start=%lu\n", t_start_ms);
   printf("end=%lu\n", t_end_ms);
   printf("duration=%lu\n", t_end_ms-t_start_ms);
-
-
+  }
+    MPI_Finalize();
   return 0;
 }
 
